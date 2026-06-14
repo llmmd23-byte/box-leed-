@@ -1,0 +1,390 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>مِدّار | تفعيل النظام</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            middar: {
+              navy: "#071b36",
+              navy2: "#0b274a",
+              cyan: "#18bfd0",
+              cyanDark: "#10a6b5",
+              pale: "#f4f8fb",
+              line: "#dbe5ef",
+              ink: "#102033",
+              muted: "#637083"
+            }
+          },
+          boxShadow: {
+            soft: "0 18px 55px rgba(7, 27, 54, 0.14)"
+          },
+          borderRadius: {
+            middar: "12px"
+          }
+        }
+      }
+    };
+  </script>
+  <style>
+    body {
+      font-family: Tahoma, Arial, sans-serif;
+    }
+
+    .form-step {
+      display: none;
+    }
+
+    .form-step.active {
+      display: block;
+    }
+
+    .field.invalid .error {
+      display: block;
+    }
+
+    .field.invalid input,
+    .field.invalid select,
+    .field.invalid textarea {
+      border-color: #c0362c;
+      box-shadow: 0 0 0 3px rgba(192, 54, 44, 0.08);
+    }
+  </style>
+</head>
+<body class="bg-middar-pale text-middar-ink antialiased">
+  <header class="fixed inset-x-0 top-0 z-30 border-b border-middar-line bg-white/95 backdrop-blur">
+    <div class="mx-auto flex h-20 max-w-6xl items-center justify-between gap-5 px-5 sm:px-8">
+      <a href="#top" class="flex items-center" aria-label="مِدّار">
+        <img
+          src="assets/middar-logo.png"
+          alt="شعار مِدّار"
+          class="h-12 w-auto max-w-[220px] object-contain sm:h-14"
+        >
+      </a>
+      <nav class="hidden items-center gap-7 text-sm font-bold text-middar-muted md:flex" aria-label="روابط الصفحة">
+        <a class="transition hover:text-middar-cyan" href="#features">المميزات</a>
+        <a class="transition hover:text-middar-cyan" href="#security">الأمان</a>
+        <a class="rounded-middar bg-middar-cyan px-5 py-3 text-white shadow-sm transition hover:bg-middar-cyanDark hover:shadow-md" href="#activation">
+          ابدأ التفعيل
+        </a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="top">
+    <section class="min-h-screen bg-middar-navy pt-28 text-white">
+      <div class="mx-auto grid min-h-[calc(100vh-7rem)] max-w-6xl items-center gap-10 px-5 pb-14 sm:px-8 lg:grid-cols-[0.85fr_1.15fr]">
+        <div class="max-w-xl">
+          <span class="inline-flex items-center gap-2 rounded-full border border-middar-cyan/30 bg-middar-cyan/10 px-4 py-2 text-sm font-bold text-cyan-100">
+            <svg class="h-4 w-4 text-middar-cyan" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M12 3l7 3v5c0 4.5-2.8 8.4-7 10-4.2-1.6-7-5.5-7-10V6l7-3z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+              <path d="M9 12l2 2 4-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            متوافق مع هيئة الزكاة والضريبة والجمارك ZATCA
+          </span>
+          <h1 class="mt-6 text-4xl font-black leading-tight tracking-normal sm:text-5xl lg:text-6xl">
+            أدر أعمالك بذكاء.. في مكان واحد
+          </h1>
+          <p class="mt-5 text-lg leading-9 text-slate-200">
+            فعّل نظام مِدّار لنقاط البيع وإدارة الأعمال السحابية من خلال خطوات واضحة وسريعة، وابدأ بإصدار الفواتير الإلكترونية ومتابعة المبيعات والمخزون بثقة.
+          </p>
+          <div class="mt-8 flex flex-wrap gap-3">
+            <a class="rounded-middar bg-middar-cyan px-6 py-3.5 text-base font-black text-white shadow-lg shadow-cyan-950/20 transition hover:-translate-y-0.5 hover:bg-middar-cyanDark hover:shadow-xl" href="#activation">
+              فعّل نظامك الآن
+            </a>
+            <a class="rounded-middar border border-white/20 bg-white/10 px-6 py-3.5 text-base font-bold text-white transition hover:bg-white/15" href="#features">
+              استعرض المميزات
+            </a>
+          </div>
+        </div>
+
+        <section id="activation" class="rounded-middar bg-white p-5 text-middar-ink shadow-soft sm:p-7">
+          <div class="mb-6">
+            <p class="text-sm font-black text-middar-cyan">تسجيل وتفعيل</p>
+            <h2 class="mt-1 text-2xl font-black sm:text-3xl">أكمل بياناتك لبدء استخدام مِدّار</h2>
+            <p class="mt-2 text-sm leading-7 text-middar-muted">نموذج مبسط من 3 خطوات، مصمم لتقليل الوقت وتسهيل إدخال البيانات.</p>
+          </div>
+
+          <div class="mb-7 grid gap-3 sm:grid-cols-3" aria-label="خطوات النموذج">
+            <div class="step rounded-middar border border-middar-cyan bg-middar-cyan/10 p-4" data-step-indicator="0">
+              <div class="flex items-center gap-3">
+                <span class="grid h-9 w-9 place-items-center rounded-middar bg-middar-cyan text-sm font-black text-white">1</span>
+                <div>
+                  <p class="text-sm font-black">بيانات المنشأة</p>
+                </div>
+              </div>
+            </div>
+            <div class="step rounded-middar border border-middar-line bg-slate-50 p-4" data-step-indicator="1">
+              <div class="flex items-center gap-3">
+                <span class="grid h-9 w-9 place-items-center rounded-middar bg-slate-200 text-sm font-black text-middar-muted">2</span>
+                <div>
+                  <p class="text-sm font-black">بيانات التواصل</p>
+                </div>
+              </div>
+            </div>
+            <div class="step rounded-middar border border-middar-line bg-slate-50 p-4" data-step-indicator="2">
+              <div class="flex items-center gap-3">
+                <span class="grid h-9 w-9 place-items-center rounded-middar bg-slate-200 text-sm font-black text-middar-muted">3</span>
+                <div>
+                  <p class="text-sm font-black">بيانات التفعيل</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <form id="middar-form" novalidate>
+            <section class="form-step active" data-form-step="0" aria-label="بيانات المنشأة">
+              <div class="grid gap-4 sm:grid-cols-2">
+                <div class="field">
+                  <label class="mb-1.5 block text-sm font-black" for="company-name">اسم المنشأة</label>
+                  <input class="min-h-12 w-full rounded-middar border border-middar-line px-4 outline-none transition focus:border-middar-cyan focus:ring-4 focus:ring-middar-cyan/15" id="company-name" name="companyName" type="text" placeholder="مثال: مطعم مِدّار" required>
+                  <span class="error mt-1 hidden text-xs font-bold text-red-700">يرجى إدخال اسم المنشأة.</span>
+                </div>
+                <div class="field">
+                  <label class="mb-1.5 block text-sm font-black" for="business-type">نوع النشاط</label>
+                  <select class="min-h-12 w-full rounded-middar border border-middar-line px-4 outline-none transition focus:border-middar-cyan focus:ring-4 focus:ring-middar-cyan/15" id="business-type" name="businessType" required>
+                    <option value="">اختر نوع النشاط</option>
+                    <option>مطاعم ومقاهي</option>
+                    <option>تموينات غذائية</option>
+                    <option>تجارة ملابس</option>
+                    <option>إلكترونيات</option>
+                    <option value="other">أخرى</option>
+                  </select>
+                  <span class="error mt-1 hidden text-xs font-bold text-red-700">يرجى اختيار نوع النشاط.</span>
+                </div>
+                <div class="field hidden sm:col-span-2" id="other-business-field">
+                  <label class="mb-1.5 block text-sm font-black" for="other-business-type">اكتب نوع النشاط</label>
+                  <input class="min-h-12 w-full rounded-middar border border-middar-line px-4 outline-none transition focus:border-middar-cyan focus:ring-4 focus:ring-middar-cyan/15" id="other-business-type" name="otherBusinessType" type="text" placeholder="مثال: صيدلية، مكتبة، مغسلة">
+                  <span class="error mt-1 hidden text-xs font-bold text-red-700">يرجى كتابة نوع النشاط.</span>
+                </div>
+                <div class="field sm:col-span-2">
+                  <label class="mb-1.5 block text-sm font-black" for="business-address">العنوان التجاري</label>
+                  <input class="min-h-12 w-full rounded-middar border border-middar-line px-4 outline-none transition focus:border-middar-cyan focus:ring-4 focus:ring-middar-cyan/15" id="business-address" name="businessAddress" type="text" placeholder="المدينة، الحي، الشارع" required>
+                  <span class="error mt-1 hidden text-xs font-bold text-red-700">يرجى إدخال العنوان التجاري.</span>
+                </div>
+                <div class="field sm:col-span-2">
+                  <label class="mb-1.5 block text-sm font-black" for="notes">ملاحظات / متطلبات المنشأة</label>
+                  <textarea class="min-h-28 w-full resize-y rounded-middar border border-middar-line px-4 py-3 outline-none transition focus:border-middar-cyan focus:ring-4 focus:ring-middar-cyan/15" id="notes" name="notes" placeholder="مثال: عدد الفروع أو أجهزة الكاشير المطلوبة"></textarea>
+                </div>
+              </div>
+            </section>
+
+            <section class="form-step" data-form-step="1" aria-label="بيانات التواصل">
+              <div class="grid gap-4 sm:grid-cols-2">
+                <div class="field sm:col-span-2">
+                  <label class="mb-1.5 block text-sm font-black" for="full-name">الاسم الكامل</label>
+                  <input class="min-h-12 w-full rounded-middar border border-middar-line px-4 outline-none transition focus:border-middar-cyan focus:ring-4 focus:ring-middar-cyan/15" id="full-name" name="fullName" type="text" placeholder="اكتب اسم المسؤول عن التفعيل" required>
+                  <span class="error mt-1 hidden text-xs font-bold text-red-700">يرجى إدخال الاسم الكامل.</span>
+                </div>
+                <div class="field">
+                  <label class="mb-1.5 block text-sm font-black" for="mobile">رقم الجوال</label>
+                  <input class="min-h-12 w-full rounded-middar border border-middar-line px-4 outline-none transition focus:border-middar-cyan focus:ring-4 focus:ring-middar-cyan/15" id="mobile" name="mobile" type="tel" inputmode="tel" placeholder="+966 55 000 0000" pattern="^(\+966|966|0)?5[0-9]{8}$" required>
+                  <span class="error mt-1 hidden text-xs font-bold text-red-700">يرجى إدخال رقم جوال سعودي صحيح.</span>
+                </div>
+                <div class="field">
+                  <label class="mb-1.5 block text-sm font-black" for="email">البريد الإلكتروني</label>
+                  <input class="min-h-12 w-full rounded-middar border border-middar-line px-4 outline-none transition focus:border-middar-cyan focus:ring-4 focus:ring-middar-cyan/15" id="email" name="email" type="email" placeholder="name@company.com" required>
+                  <span class="error mt-1 hidden text-xs font-bold text-red-700">يرجى إدخال بريد إلكتروني صحيح.</span>
+                </div>
+              </div>
+            </section>
+
+            <section class="form-step" data-form-step="2" aria-label="بيانات التفعيل">
+              <div class="grid gap-4 sm:grid-cols-2">
+                <div class="field">
+                  <label class="mb-1.5 block text-sm font-black" for="serial-number">الرقم التسلسلي</label>
+                  <input class="min-h-12 w-full rounded-middar border border-middar-line px-4 outline-none transition focus:border-middar-cyan focus:ring-4 focus:ring-middar-cyan/15" id="serial-number" name="serialNumber" type="text" placeholder="MID-2026-0001" required>
+                  <span class="error mt-1 hidden text-xs font-bold text-red-700">يرجى إدخال الرقم التسلسلي.</span>
+                </div>
+                <div class="field">
+                  <label class="mb-1.5 block text-sm font-black" for="activation-code">كود التفعيل</label>
+                  <input class="min-h-12 w-full rounded-middar border border-middar-line px-4 outline-none transition focus:border-middar-cyan focus:ring-4 focus:ring-middar-cyan/15" id="activation-code" name="activationCode" type="text" placeholder="اكتب كود التفعيل" required>
+                  <span class="error mt-1 hidden text-xs font-bold text-red-700">يرجى إدخال كود التفعيل.</span>
+                </div>
+              </div>
+            </section>
+
+            <div class="mt-7 flex flex-col-reverse gap-3 sm:flex-row sm:items-center sm:justify-between">
+              <button class="rounded-middar border border-middar-line bg-white px-6 py-3 font-black text-middar-ink transition hover:bg-slate-50" type="button" id="prev-step">
+                السابق
+              </button>
+              <button class="rounded-middar bg-middar-cyan px-7 py-3 font-black text-white shadow-sm transition hover:-translate-y-0.5 hover:bg-middar-cyanDark hover:shadow-md" type="button" id="next-step">
+                التالي
+              </button>
+            </div>
+            <div class="mt-5 hidden rounded-middar border border-middar-cyan/30 bg-middar-cyan/10 p-4 text-sm font-bold text-middar-navy" id="form-success" role="status">
+              تم استلام بياناتك بنجاح. سيبدأ فريق مِدّار بمراجعة التفعيل والتواصل معك قريباً.
+            </div>
+          </form>
+        </section>
+      </div>
+    </section>
+
+    <section class="bg-white py-16" id="features">
+      <div class="mx-auto max-w-6xl px-5 sm:px-8">
+        <div class="max-w-2xl">
+          <p class="text-sm font-black text-middar-cyan">المميزات</p>
+          <h2 class="mt-2 text-3xl font-black text-middar-ink">كل ما تحتاجه لتشغيل نقاط البيع بسلاسة</h2>
+        </div>
+        <div class="mt-9 grid gap-4 md:grid-cols-3">
+          <article class="rounded-middar border border-middar-line bg-white p-6 shadow-sm">
+            <div class="mb-4 grid h-11 w-11 place-items-center rounded-middar bg-middar-cyan/10 text-middar-cyan">
+              <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M7 3h8l4 4v14H7V3z" stroke="currentColor" stroke-width="2"/><path d="M15 3v5h4M9 13h6M9 17h6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+            </div>
+            <h3 class="text-lg font-black">فواتير معتمدة</h3>
+            <p class="mt-2 text-sm leading-7 text-middar-muted">إصدار فواتير إلكترونية منظمة ومتوافقة مع متطلبات ZATCA.</p>
+          </article>
+          <article class="rounded-middar border border-middar-line bg-white p-6 shadow-sm">
+            <div class="mb-4 grid h-11 w-11 place-items-center rounded-middar bg-middar-cyan/10 text-middar-cyan">
+              <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 7l8-4 8 4-8 4-8-4zM4 7v10l8 4 8-4V7" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>
+            </div>
+            <h3 class="text-lg font-black">إدارة مخزون</h3>
+            <p class="mt-2 text-sm leading-7 text-middar-muted">متابعة المنتجات والكميات والتنبيهات من واجهة واضحة وسريعة.</p>
+          </article>
+          <article class="rounded-middar border border-middar-line bg-white p-6 shadow-sm">
+            <div class="mb-4 grid h-11 w-11 place-items-center rounded-middar bg-middar-cyan/10 text-middar-cyan">
+              <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M20 12a8 8 0 0 1-13.7 5.7M4 12A8 8 0 0 1 17.7 6.3M18 3v4h-4M6 21v-4h4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
+            <h3 class="text-lg font-black">مزامنة فورية</h3>
+            <p class="mt-2 text-sm leading-7 text-middar-muted">تحديث بيانات المبيعات والفروع عبر السحابة دون تعقيد.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="bg-middar-pale py-16" id="security">
+      <div class="mx-auto max-w-6xl px-5 sm:px-8">
+        <div class="max-w-2xl">
+          <p class="text-sm font-black text-middar-cyan">الأمان والموثوقية</p>
+          <h2 class="mt-2 text-3xl font-black text-middar-ink">حماية واضحة ودعم مستمر</h2>
+        </div>
+        <div class="mt-9 grid gap-4 md:grid-cols-3">
+          <article class="rounded-middar border border-middar-line bg-white p-6 shadow-sm">
+            <h3 class="text-lg font-black">تشفير SSL</h3>
+            <p class="mt-2 text-sm leading-7 text-middar-muted">حماية بياناتك أثناء النقل وفق معايير تشفير موثوقة.</p>
+          </article>
+          <article class="rounded-middar border border-middar-line bg-white p-6 shadow-sm">
+            <h3 class="text-lg font-black">نسخ احتياطي يومي</h3>
+            <p class="mt-2 text-sm leading-7 text-middar-muted">حفظ دوري للبيانات لدعم استمرارية العمل وتقليل المخاطر.</p>
+          </article>
+          <article class="rounded-middar border border-middar-line bg-white p-6 shadow-sm">
+            <h3 class="text-lg font-black">دعم 24/7</h3>
+            <p class="mt-2 text-sm leading-7 text-middar-muted">مساندة فنية خلال التفعيل والاستخدام اليومي للنظام.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="bg-middar-navy py-7 text-white">
+    <div class="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-4 px-5 text-sm sm:px-8">
+      <strong>مِدّار Middar</strong>
+      <div class="flex flex-wrap gap-4 text-slate-200">
+        <a class="transition hover:text-middar-cyan" href="mailto:info@middar.com">info@middar.com</a>
+        <a class="transition hover:text-middar-cyan" dir="ltr" href="tel:+966578875871">+966 57 887 5871</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const form = document.querySelector("#middar-form");
+    const steps = Array.from(document.querySelectorAll("[data-form-step]"));
+    const indicators = Array.from(document.querySelectorAll("[data-step-indicator]"));
+    const prevButton = document.querySelector("#prev-step");
+    const nextButton = document.querySelector("#next-step");
+    const success = document.querySelector("#form-success");
+    const businessType = document.querySelector("#business-type");
+    const otherBusinessField = document.querySelector("#other-business-field");
+    const otherBusinessInput = document.querySelector("#other-business-type");
+    let currentStep = 0;
+
+    function paintIndicators() {
+      indicators.forEach((indicator, index) => {
+        const badge = indicator.querySelector("span");
+        const isActive = index === currentStep;
+        const isDone = index < currentStep;
+
+        indicator.className = isActive || isDone
+          ? "step rounded-middar border border-middar-cyan bg-middar-cyan/10 p-4"
+          : "step rounded-middar border border-middar-line bg-slate-50 p-4";
+        badge.className = isActive || isDone
+          ? "grid h-9 w-9 place-items-center rounded-middar bg-middar-cyan text-sm font-black text-white"
+          : "grid h-9 w-9 place-items-center rounded-middar bg-slate-200 text-sm font-black text-middar-muted";
+      });
+    }
+
+    function showStep(index) {
+      currentStep = index;
+      steps.forEach((step, stepIndex) => {
+        step.classList.toggle("active", stepIndex === index);
+      });
+      paintIndicators();
+      prevButton.style.visibility = index === 0 ? "hidden" : "visible";
+      nextButton.textContent = index === steps.length - 1 ? "تفعيل" : "التالي";
+      success.classList.add("hidden");
+    }
+
+    function validateCurrentStep() {
+      const fields = Array.from(steps[currentStep].querySelectorAll("input, select, textarea"));
+      let valid = true;
+
+      fields.forEach((field) => {
+        const wrapper = field.closest(".field");
+        const fieldValid = field.checkValidity();
+        wrapper.classList.toggle("invalid", !fieldValid);
+        if (!fieldValid) {
+          valid = false;
+        }
+      });
+
+      return valid;
+    }
+
+    form.addEventListener("input", (event) => {
+      const wrapper = event.target.closest(".field");
+      if (wrapper) {
+        wrapper.classList.remove("invalid");
+      }
+    });
+
+    businessType.addEventListener("change", () => {
+      const shouldShowOther = businessType.value === "other";
+      otherBusinessField.classList.toggle("hidden", !shouldShowOther);
+      otherBusinessInput.required = shouldShowOther;
+
+      if (!shouldShowOther) {
+        otherBusinessInput.value = "";
+        otherBusinessField.classList.remove("invalid");
+      }
+    });
+
+    prevButton.addEventListener("click", () => {
+      if (currentStep > 0) {
+        showStep(currentStep - 1);
+      }
+    });
+
+    nextButton.addEventListener("click", () => {
+      if (!validateCurrentStep()) {
+        return;
+      }
+
+      if (currentStep < steps.length - 1) {
+        showStep(currentStep + 1);
+        return;
+      }
+
+      form.reset();
+      showStep(0);
+      success.classList.remove("hidden");
+    });
+
+    showStep(0);
+  </script>
+</body>
+</html>
