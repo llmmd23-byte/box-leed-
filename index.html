@@ -456,11 +456,16 @@
       }
 
       const webhookSent = await sendToWebhook();
+      // keep the message visible; only reset form after a short delay so user sees result
       success.classList.remove("hidden");
-      
+
       if (webhookSent) {
-        form.reset();
-        showStep(0);
+        setTimeout(() => {
+          form.reset();
+          showStep(0);
+          // hide success after returning to first step
+          success.classList.add("hidden");
+        }, 2200);
       }
     });
 
