@@ -216,6 +216,7 @@
               <button class="rounded-middar bg-middar-cyan px-7 py-3 font-black text-white shadow-sm transition hover:-translate-y-0.5 hover:bg-middar-cyanDark hover:shadow-md" type="button" id="next-step">
                 التالي
               </button>
+              <button id="debug-send" type="button" title="Debug: send webhook now" class="hidden ml-2 rounded border border-middar-line bg-white px-4 py-2 text-xs font-bold text-middar-ink">Debug Send</button>
             </div>
             <div class="mt-5 hidden rounded-middar border border-middar-cyan/30 bg-middar-cyan/10 p-4 text-sm font-bold text-middar-navy" id="form-success" role="status"></div>
           </form>
@@ -395,28 +396,51 @@
         }
       };
 
+      const webhookUrl = "https://crm3.middar.com/webhooks/workflows/3b232748-706c-45da-a998-b5c2243b3cc0/37b25d96-9926-4c9e-9e80-5556d1c37ac5";
+
+      // Show sending state
+      success.classList.remove("hidden");
+      success.innerHTML = '<div class="flex items-center gap-2 text-sm">جارٍ الإرسال...</div>';
+      nextButton.disabled = true;
+      const debugBtn = document.querySelector("#debug-send");
+      if (debugBtn) debugBtn.disabled = true;
+
+      console.log("Sending webhook to:", webhookUrl, "payload:", payload);
+
       try {
-        const response = await fetch("https://crm3.middar.com/webhooks/workflows/3b232748-706c-45da-a998-b5c2243b3cc0/37b25d96-9926-4c9e-9e80-5556d1c37ac5", {
+        const response = await fetch(webhookUrl, {
           method: "POST",
+          mode: "cors",
           headers: {
             "Content-Type": "application/json"
           },
           body: JSON.stringify(payload)
         });
 
+        console.log("Webhook response status:", response.status);
+
         if (response.ok) {
-          const responseData = await response.json();
-          console.log("Webhook sent successfully:", responseData);
-          success.innerHTML = '<div class="flex items-center gap-2"><svg class="h-5 w-5 text-green-600" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg><span>✓ تم استلام بياناتك بنجاح. سيبدأ فريق مِدّار بمراجعة التفعيل والتواصل معك قريباً.</span></div>';
+          let data = null;
+          try { data = await response.json(); } catch (e) { /* ignore JSON parse errors */ }
+          console.log("Webhook success response:", data);
+          success.innerHTML = '<div class="flex items-center gap-2"><svg class="h-5 w-5 text-green-600" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg><span>✓ تم استلام بياناتك بنجاح. (الحالة: ' + response.status + ')</span></div>';
+          nextButton.disabled = false;
+          if (debugBtn) debugBtn.disabled = false;
           return true;
-        } else {
-          console.error("Webhook request failed:", response.status);
-          success.innerHTML = '<div class="flex items-center gap-2"><svg class="h-5 w-5 text-red-600" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"/></svg><span>✗ حدث خطأ في إرسال البيانات (الحالة: ' + response.status + '). يرجى المحاولة مرة أخرى.</span></div>';
-          return false;
         }
+
+        // non-2xx
+        const text = await response.text().catch(() => '');
+        console.error("Webhook request failed", response.status, text);
+        success.innerHTML = '<div class="flex items-center gap-2"><svg class="h-5 w-5 text-red-600" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"/></svg><span>✗ حدث خطأ في إرسال البيانات (الحالة: ' + response.status + ').</span></div>';
+        nextButton.disabled = false;
+        if (debugBtn) debugBtn.disabled = false;
+        return false;
       } catch (error) {
         console.error("Error sending webhook:", error);
-        success.innerHTML = '<div class="flex items-center gap-2"><svg class="h-5 w-5 text-red-600" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"/></svg><span>✗ خطأ في الاتصال: ' + error.message + '. تحقق من اتصالك بالإنترنت.</span></div>';
+        success.innerHTML = '<div class="flex items-center gap-2"><svg class="h-5 w-5 text-red-600" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"/></svg><span>✗ خطأ في الاتصال: ' + (error && error.message ? error.message : error) + '. تحقق من اتصالك والـ CORS.</span></div>';
+        nextButton.disabled = false;
+        if (debugBtn) debugBtn.disabled = false;
         return false;
       }
     }
