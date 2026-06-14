@@ -369,6 +369,53 @@
       }
     });
 
+    async function sendToWebhook() {
+      const companyName = document.querySelector("#company-name").value;
+      const notes = document.querySelector("#notes").value;
+      const activationCode = document.querySelector("#activation-code").value;
+      const businessAddress = document.querySelector("#business-address").value;
+      const businessType = document.querySelector("#business-type").value;
+      const otherBusinessType = document.querySelector("#other-business-type").value;
+      const serialNumber = document.querySelector("#serial-number").value;
+      const fullName = document.querySelector("#full-name").value;
+      const email = document.querySelector("#email").value;
+      const mobile = document.querySelector("#mobile").value;
+
+      const payload = {
+        company: {
+          name: companyName,
+          notes: notes,
+          Codeno: activationCode,
+          address: businessAddress,
+          activity: businessType === "other" ? otherBusinessType : businessType,
+          "Serial Number": serialNumber
+        },
+        contact: {
+          name: fullName,
+          email: email,
+          mobile: mobile
+        }
+      };
+
+      try {
+        const response = await fetch("https://crm3.middar.com/webhooks/workflows/3b232748-706c-45da-a998-b5c2243b3cc0/37b25d96-9926-4c9e-9e80-5556d1c37ac5", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify(payload)
+        });
+
+        if (response.ok) {
+          console.log("Webhook sent successfully:", await response.json());
+        } else {
+          console.error("Webhook request failed:", response.status);
+        }
+      } catch (error) {
+        console.error("Error sending webhook:", error);
+      }
+    }
+
     nextButton.addEventListener("click", () => {
       if (!validateCurrentStep()) {
         return;
@@ -379,6 +426,7 @@
         return;
       }
 
+      sendToWebhook();
       form.reset();
       showStep(0);
       success.classList.remove("hidden");
